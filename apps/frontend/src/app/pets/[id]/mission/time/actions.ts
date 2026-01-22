@@ -5,7 +5,8 @@ import { redirect } from "next/navigation";
 
 export async function updatePetBirthDate(petId: string, birthDate: Date) {
   // Conectamos con tu backend de Hono
-  const response = await fetch(`http://localhost:3000/api/pets/${petId}`, {
+  const url = `http://localhost:5000/api/pets/${petId}`;
+  const response = await fetch(url, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

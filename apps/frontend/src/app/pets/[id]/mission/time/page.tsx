@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, use } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { Calendar } from "@/components/ui/calendar";
@@ -9,22 +9,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, Trophy, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { updatePetBirthDate } from "./actions";
+import { useSearchParams } from "next/navigation";
 
 export default function TimeMissionPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = use(params);
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [loading, setLoading] = useState(false);
   const [won, setWon] = useState(false);
+
+  const searchParams = useSearchParams();
+  const petId = searchParams.get("id");
+  const petName = searchParams.get("name") || "Tu mascota";
 
   const handleComplete = async () => {
     if (!date) return;
     setLoading(true);
 
     try {
-      await updatePetBirthDate(params.id, date);
+      await updatePetBirthDate(id, date);
 
       // ¡Efectos visuales de victoria!
       confetti({
@@ -45,11 +51,15 @@ export default function TimeMissionPage({
   return (
     <div className="container max-w-md mx-auto py-10 px-4">
       <Link
-        href={`/pets/${params.id}`}
+        href={`/pets/${petId}`}
         className="flex items-center text-sm text-muted-foreground mb-6"
       >
         <ChevronLeft className="w-4 h-4 mr-1" /> Volver al perfil
       </Link>
+
+      <p className="text-xl font-bold">
+        ¡{petName} se ha unido a la manada! 🐾
+      </p>
 
       <AnimatePresence mode="wait">
         {!won ? (
@@ -120,7 +130,7 @@ export default function TimeMissionPage({
             </div>
 
             <Button asChild variant="outline" className="mt-4">
-              <Link href={`/pets/${params.id}`}>Ir a la siguiente misión</Link>
+              <Link href={`/pets/${petId}`}>Ir a la siguiente misión</Link>
             </Button>
           </motion.div>
         )}

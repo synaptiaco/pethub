@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PetSchema, type Pet } from "@pethub/shared";
 import {
@@ -23,6 +24,8 @@ export function PetForm() {
     defaultValues: { name: "", species: "Dog", birthDate: "" },
   });
 
+  const router = useRouter();
+
   const mutation = useMutation({
     mutationFn: async (newPet: Pet) => {
       const res = await fetch("http://localhost:5000/api/pets", {
@@ -33,13 +36,18 @@ export function PetForm() {
       if (!res.ok) throw new Error("Error al registrar mascota");
       return res.json();
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
       form.reset();
 
-      toast.success("¡Bruno se ha unido a la manada!", {
+      const pet = response.data;
+
+      toast.success(`¡${pet.name} se ha unido a la manada!`, {
         description: "Su perfil está al 20%. ¡Sigue así! 🐾",
         icon: <PawPrintIcon className="text-pastel-blue" />,
       });
+
+      // Usamos el ID generado por la DB
+      router.push(`/pets/${pet.id}/mission/time?name=${pet.name}`);
     },
   });
 

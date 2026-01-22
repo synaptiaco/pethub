@@ -2,13 +2,13 @@ import { PetProgress } from "@/components/pet-progress";
 import { MissionCard } from "@/components/mission-card";
 import { getPetFromHono } from "@/lib/api";
 
-export default async function PetDashboard({
-  params,
-}: {
-  params: { id: string };
+export default async function PetDashboard(props: {
+  params: Promise<{ id: string }>; // Definimos params como una Promesa
 }) {
-  // Simulamos obtener los datos de tu API de Hono
-  const pet = await getPetFromHono(params.id);
+  // 1. Esperamos a que los params se resuelvan
+  const resolvedParams = await props.params;
+  const petId = resolvedParams.id;
+  const pet = await getPetFromHono(petId);
 
   // Lógica para determinar qué misión sigue
   const missions = [

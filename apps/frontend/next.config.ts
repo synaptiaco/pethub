@@ -1,10 +1,18 @@
 import withSerwistInit from "@serwist/next";
+import type { NextConfig } from 'next';
+
 
 const withSerwist = withSerwistInit({
   swSrc: "src/sw.ts", // Donde vivirá la lógica del Service Worker
   swDest: "public/sw.js",
+  disable: process.env.NODE_ENV === "development",
 });
 
-export default withSerwist({
-  reactCompiler:true
-});
+const nextConfig: NextConfig = {
+  reactCompiler:true,
+  turbopack: {},
+  transpilePackages: ["@pethub/shared"],  
+  
+};
+
+export default withSerwist(nextConfig);
