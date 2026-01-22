@@ -1,0 +1,16 @@
+{
+  "name": "PetHub App",
+  "short_name": "PetHub",
+  "description": "Tu centro de gestión de mascotas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
