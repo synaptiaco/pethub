@@ -1,0 +1,16 @@
+# Dependencias
+node_modules/
+.next/
+dist/
+build/
+
+# Docker y Base de Datos
+postgres_data/
+
+# Variables de entorno (Seguridad)
+.env
+.env.local
+
+# Logs y misceláneos
+npm-debug.log*
+.DS_Store
