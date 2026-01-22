@@ -7,6 +7,7 @@ export const pets = pgTable("pets", {
   breed: varchar("breed", { length: 100 }),
   birthDate: timestamp("birth_date"),
   age: integer("age"),
+  photoUrl: text("photo_url"),
   ownerId: uuid("owner_id").notNull(), // ref to the owners table
   medicalNotes: text("medical_notes"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
