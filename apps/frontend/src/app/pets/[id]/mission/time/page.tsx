@@ -22,7 +22,6 @@ export default function TimeMissionPage({
   const [won, setWon] = useState(false);
 
   const searchParams = useSearchParams();
-  const petId = searchParams.get("id");
   const petName = searchParams.get("name") || "Tu mascota";
 
   const handleComplete = async () => {
@@ -51,7 +50,7 @@ export default function TimeMissionPage({
   return (
     <div className="container max-w-md mx-auto py-10 px-4">
       <Link
-        href={`/pets/${petId}`}
+        href={`/pets/${id}`}
         className="flex items-center text-sm text-muted-foreground mb-6"
       >
         <ChevronLeft className="w-4 h-4 mr-1" /> Volver al perfil
@@ -130,7 +129,7 @@ export default function TimeMissionPage({
             </div>
 
             <Button asChild variant="outline" className="mt-4">
-              <Link href={`/pets/${petId}`}>Ir a la siguiente misión</Link>
+              <Link href={`/pets/${id}`}>Ir a la siguiente misión</Link>
             </Button>
           </motion.div>
         )}
