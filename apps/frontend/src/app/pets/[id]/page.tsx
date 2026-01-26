@@ -1,6 +1,5 @@
 import { DonutProgress } from "@/components/ui/donut-progress";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Trophy, Camera, Clock, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { MissionCard } from "@/components/mission-card";
