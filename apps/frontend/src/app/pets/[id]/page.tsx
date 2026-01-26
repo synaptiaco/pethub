@@ -1,9 +1,10 @@
 import { DonutProgress } from "@/components/ui/donut-progress";
 import { Card } from "@/components/ui/card";
-import { Trophy, Camera, Clock, ChevronRight } from "lucide-react";
+import { Trophy, Camera, Clock, ChevronRight, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { MissionCard } from "@/components/mission-card";
 import { getPetFromHono } from "@/lib/api";
+import { Button } from "@/components/ui/button";
 
 export default async function PetDashboard(props: {
   params: Promise<{ id: string }>; // Definimos params como una Promesa
@@ -49,6 +50,32 @@ export default async function PetDashboard(props: {
           Completa las misiones para convertirte en un **Dueño Pro**.
         </p>
       </section>
+
+      <div className="bg-red-50 border-2 border-red-200 rounded-3xl p-6 shadow-sm">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="bg-red-600 p-2 rounded-full animate-pulse">
+            <AlertCircle className="text-white w-5 h-5" />
+          </div>
+          <h3 className="font-black text-red-700 uppercase tracking-tight">
+            Zona de Emergencia
+          </h3>
+        </div>
+
+        <p className="text-sm text-red-600 mb-4">
+          Si notas algo grave en <b>Rocko</b>, activa la tele-orientación
+          inmediata.
+        </p>
+
+        <Button
+          variant="destructive"
+          className="w-full h-14 rounded-2xl font-black text-lg gap-3 shadow-lg shadow-red-200"
+          // Al hacer clic, enviamos params.id automáticamente
+          onClick={() => triggerPanic(params.id)}
+        >
+          <PhoneCall className="w-6 h-6" />
+          BOTÓN DE PÁNICO
+        </Button>
+      </div>
 
       {/* Misiones Listado */}
       <div className="px-6 mt-8 space-y-4">

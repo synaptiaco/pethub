@@ -17,7 +17,7 @@ export const MENUS:{
   }[];
 } = {
   CLIENT: [
-    { label: "Home", icon: Home, href: "/dashboard" },
+    { label: "Home", icon: Home, href: "/" },
     { label: "Explorar", icon: Map, href: "/explore" },
     { label: "Mascotas", icon: PawPrint, href: "/pets" },
     { label: "Perfil", icon: User, href: "/profile" },
