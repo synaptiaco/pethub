@@ -9,6 +9,28 @@ export default async function VetConsultPage(props: {
   const petId = resolvedParams.id;
   const pet = await getPetFromHono(petId);
 
+  function calculateAge(birthDate: string | undefined): React.ReactNode {
+    if (!birthDate) return "Edad desconocida";
+    const birth = new Date(birthDate);
+    if (isNaN(birth.getTime())) return "Edad desconocida";
+    const now = new Date();
+    let years = now.getFullYear() - birth.getFullYear();
+    let months = now.getMonth() - birth.getMonth();
+    if (months < 0 || (months === 0 && now.getDate() < birth.getDate())) {
+      years--;
+      months += 12;
+    }
+    if (years > 0) {
+      return `${years} año${years > 1 ? "s" : ""}${
+        months > 0 ? `, ${months} mes${months > 1 ? "es" : ""}` : ""
+      }`;
+    }
+    if (months > 0) {
+      return `${months} mes${months > 1 ? "es" : ""}`;
+    }
+    return "Menos de 1 mes";
+  }
+
   return (
     <div className="p-4 space-y-4">
       <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl">
